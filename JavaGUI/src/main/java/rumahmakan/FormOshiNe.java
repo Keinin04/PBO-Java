@@ -19,16 +19,46 @@ public class FormOshiNe extends javax.swing.JFrame {
 	 */
 	public FormOshiNe() {
 		initComponents();
-		hargaPaketMakanan_off();
-		hargaMinuman_off();
+		nonAktif();
 		
 	}
 
+	// Paket Makanan
 	private void hargaPaketMakanan_off(){
+		hargaPaketMakanan.setText("");
 		hargaPaketMakanan.setEnabled(false);
 	}
+	private void jumlahPaketMakanan_off(){
+		jumlahPaketMakanan.setText("");
+		jumlahPaketMakanan.setEnabled(false);
+	}
+	private void jumlahPaketMakanan_on(){
+		jumlahPaketMakanan.setEnabled(true);
+	}
+
+	// Minuman
 	private void hargaMinuman_off(){
+		hargaMinuman.setText("");
 		hargaMinuman.setEnabled(false);
+	}
+
+
+	private void jumlahMinuman_off(){
+		jumlahMinuman.setText("");
+		jumlahMinuman.setEnabled(false);
+	}
+	private void jumlahMinuman_on(){
+		jumlahMinuman.setEnabled(true);
+	}
+
+
+	// nonAktif
+	private void nonAktif(){
+		hargaPaketMakanan_off();
+		jumlahPaketMakanan_off();
+		hargaMinuman_off();
+		jumlahMinuman_off();
+
 	}
 
 
@@ -508,9 +538,11 @@ public class FormOshiNe extends javax.swing.JFrame {
 
 			menuHarga.setHargaMinuman(minuman.getSelectedItem().toString());
 			hargaMinuman.setText(String.valueOf(menuHarga.getHargaMinuman()));
+			jumlahPaketMakanan_off();
 
 		}
 		else{
+			jumlahPaketMakanan_on();
 			menuHarga.setHargaPaket(paketMakanan.getSelectedItem().toString());
 			hargaPaketMakanan.setText(String.valueOf(menuHarga.getHargaPaket()));
 		}
@@ -519,11 +551,13 @@ public class FormOshiNe extends javax.swing.JFrame {
         private void minumanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_minumanActionPerformed
                 // TODO add your handling code here:
 		if(minuman.getSelectedItem().toString().equalsIgnoreCase("PILIH")){
+			jumlahMinuman_off();
 
 			menuHarga.setHargaMinuman(minuman.getSelectedItem().toString());
 			hargaMinuman.setText(String.valueOf(menuHarga.getHargaMinuman()));
 		}
 		else{
+			jumlahMinuman_on();
 			menuHarga.setHargaMinuman(minuman.getSelectedItem().toString());
 			hargaMinuman.setText(String.valueOf(menuHarga.getHargaMinuman()));
 		}
