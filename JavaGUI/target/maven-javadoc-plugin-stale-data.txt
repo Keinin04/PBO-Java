@@ -1,0 +1,56 @@
+@options
+@packages
+@argfile
+-encoding
+'UTF-8'
+-protected
+-source
+'17'
+-sourcepath
+'C:/Users/rifky/Documents/NetBeansProjects/PBO-Java/JavaGUI/src/main/java'
+-author
+-bottom
+'Copyright &#169; 2023. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'C:/Users/rifky/Documents/NetBeansProjects/PBO-Java/JavaGUI/target/site/apidocs'
+-docencoding
+'UTF-8'
+-doctitle
+'JavaGUI 1.0-SNAPSHOT API'
+-use
+-version
+-windowtitle
+'JavaGUI 1.0-SNAPSHOT API'
+com.formbarang.java
+com.latihan.javagui
+com.penjualanmotor.java
+com.trouble.java
+rumahmakan
+'C:/Users/rifky/Documents/NetBeansProjects/PBO-Java/JavaGUI/src/main/java/quiz.java'
+C:\Users\rifky\Documents\NetBeansProjects\PBO-Java\JavaGUI\src\main\java\quiz.form = 1683014411532
+C:\Users\rifky\Documents\NetBeansProjects\PBO-Java\JavaGUI\src\main\java\quiz.java = 1683014411592
+C:\Users\rifky\Documents\NetBeansProjects\PBO-Java\JavaGUI\src\main\java = 1686194078831
+C:\Users\rifky\Documents\NetBeansProjects\PBO-Java\JavaGUI\target\site\apidocs\allclasses-index.html = 1686236515006
+C:\Users\rifky\Documents\NetBeansProjects\PBO-Java\JavaGUI\target\site\apidocs\allpackages-index.html = 1686236515010
+C:\Users\rifky\Documents\NetBeansProjects\PBO-Java\JavaGUI\target\site\apidocs\element-list = 1686236514584
+C:\Users\rifky\Documents\NetBeansProjects\PBO-Java\JavaGUI\target\site\apidocs\help-doc.html = 1686236515081
+C:\Users\rifky\Documents\NetBeansProjects\PBO-Java\JavaGUI\target\site\apidocs\index-all.html = 1686236515071
+C:\Users\rifky\Documents\NetBeansProjects\PBO-Java\JavaGUI\target\site\apidocs\index.html = 1686236514935
+C:\Users\rifky\Documents\NetBeansProjects\PBO-Java\JavaGUI\target\site\apidocs\jquery-ui.overrides.css = 1686236515270
+C:\Users\rifky\Documents\NetBeansProjects\PBO-Java\JavaGUI\target\site\apidocs\member-search-index.js = 1686236515020
+C:\Users\rifky\Documents\NetBeansProjects\PBO-Java\JavaGUI\target\site\apidocs\module-search-index.js = 1686236515012
+C:\Users\rifky\Documents\NetBeansProjects\PBO-Java\JavaGUI\target\site\apidocs\overview-summary.html = 1686236515074
+C:\Users\rifky\Documents\NetBeansProjects\PBO-Java\JavaGUI\target\site\apidocs\overview-tree.html = 1686236514928
+C:\Users\rifky\Documents\NetBeansProjects\PBO-Java\JavaGUI\target\site\apidocs\package-search-index.js = 1686236515015
+C:\Users\rifky\Documents\NetBeansProjects\PBO-Java\JavaGUI\target\site\apidocs\package-summary.html = 1686236514600
+C:\Users\rifky\Documents\NetBeansProjects\PBO-Java\JavaGUI\target\site\apidocs\package-tree.html = 1686236514608
+C:\Users\rifky\Documents\NetBeansProjects\PBO-Java\JavaGUI\target\site\apidocs\package-use.html = 1686236514900
+C:\Users\rifky\Documents\NetBeansProjects\PBO-Java\JavaGUI\target\site\apidocs\quiz.html = 1686236514520
+C:\Users\rifky\Documents\NetBeansProjects\PBO-Java\JavaGUI\target\site\apidocs\script.js = 1686236515114
+C:\Users\rifky\Documents\NetBeansProjects\PBO-Java\JavaGUI\target\site\apidocs\search.js = 1686236515130
+C:\Users\rifky\Documents\NetBeansProjects\PBO-Java\JavaGUI\target\site\apidocs\serialized-form.html = 1686236514743
+C:\Users\rifky\Documents\NetBeansProjects\PBO-Java\JavaGUI\target\site\apidocs\stylesheet.css = 1686236515114
+C:\Users\rifky\Documents\NetBeansProjects\PBO-Java\JavaGUI\target\site\apidocs\tag-search-index.js = 1686236515023
+C:\Users\rifky\Documents\NetBeansProjects\PBO-Java\JavaGUI\target\site\apidocs\type-search-index.js = 1686236515017

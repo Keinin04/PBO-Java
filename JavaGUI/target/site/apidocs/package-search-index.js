@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"com.formbarang.java"},{"l":"com.latihan.javagui"},{"l":"com.penjualanmotor.java"},{"l":"com.trouble.java"},{"l":"rumahmakan"}];updateSearchResults();
