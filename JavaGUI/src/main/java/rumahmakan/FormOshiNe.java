@@ -5,6 +5,7 @@
 package rumahmakan;
 
 import java.awt.event.KeyEvent;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -20,10 +21,18 @@ public class FormOshiNe extends javax.swing.JFrame {
 	public FormOshiNe() {
 		initComponents();
 		nonAktif();
+
+		hargaAir.setEnabled(false);
+		hargaJuice.setEnabled(false);
+		namaPaket.setEnabled(false);
 		
 	}
 
 	// Paket Makanan
+	private void paketMakanan_off(){
+		paketMakanan.setSelectedIndex(0);
+	}
+
 	private void hargaPaketMakanan_off(){
 		hargaPaketMakanan.setText("");
 		hargaPaketMakanan.setEnabled(false);
@@ -31,33 +40,87 @@ public class FormOshiNe extends javax.swing.JFrame {
 	private void jumlahPaketMakanan_off(){
 		jumlahPaketMakanan.setText("");
 		jumlahPaketMakanan.setEnabled(false);
+
 	}
 	private void jumlahPaketMakanan_on(){
 		jumlahPaketMakanan.setEnabled(true);
 	}
 
 	// Minuman
-	private void hargaMinuman_off(){
-		hargaMinuman.setText("");
-		hargaMinuman.setEnabled(false);
+	private void air_off(){
+		air.setSelected(false);
+		jumlahAir.setText("");
+		hargaAir.setText("");
+
 	}
 
 
-	private void jumlahMinuman_off(){
-		jumlahMinuman.setText("");
-		jumlahMinuman.setEnabled(false);
+	private void juice_off(){
+		juice.setSelected(false);
+		jumlahJuice.setText("");
+		hargaJuice.setText("");
+
 	}
-	private void jumlahMinuman_on(){
-		jumlahMinuman.setEnabled(true);
+
+	private void jenisPelayanan_off(){
+		jenisPelayanan.setSelectedIndex(0);
 	}
+
+	private void tarif_off(){
+		tarif.setEnabled(false);
+		tarif.setText("");
+	}
+
+	private void totalBayar_off(){
+		totalBayar.setText("");
+	}
+	private void hargaTarif_off(){
+		hargaTarif.setText("");
+	}
+	private void tampilanTotal_off(){
+		tampilanTotal.setText("");
+	}
+	private void uangBayar_off(){
+		uangBayar.setText("");
+	}
+	private void uangKembali_off(){
+		uangKembali.setText("");
+	}
+
+
 
 
 	// nonAktif
 	private void nonAktif(){
+		paketMakanan_off();
+		jenisPelayanan_off();
 		hargaPaketMakanan_off();
 		jumlahPaketMakanan_off();
-		hargaMinuman_off();
-		jumlahMinuman_off();
+		air_off();
+		juice_off();
+		tarif_off();
+		totalBayar_off();
+		hargaTarif_off();
+		tampilanTotal_off();
+		uangBayar_off();
+		uangKembali_off();
+
+	}
+
+	private void bersih(){
+		nonAktif();
+		namaPaket.setText("");
+
+		menuHarga.hargaPaket = 0;
+		menuHarga.jumlahPaketMakanan= 0;
+		menuHarga.air = 0;
+		menuHarga.juice = 0;
+		menuHarga.totalBayar = 0;
+		menuHarga.hargaTarif = 0;
+		menuHarga.uangBayar= 0;
+		menuHarga.uangKembali= 0;
+		menuHarga.tarif = 0;
+		menuHarga.total = 0;
 
 	}
 
@@ -73,18 +136,22 @@ public class FormOshiNe extends javax.swing.JFrame {
         private void initComponents() {
 
                 jLabel4 = new javax.swing.JLabel();
+                buttonGroup1 = new javax.swing.ButtonGroup();
                 jPanel1 = new javax.swing.JPanel();
                 jPanel2 = new javax.swing.JPanel();
                 jLabel2 = new javax.swing.JLabel();
                 jLabel1 = new javax.swing.JLabel();
                 jPanel3 = new javax.swing.JPanel();
                 jLabel3 = new javax.swing.JLabel();
-                minuman = new javax.swing.JComboBox<>();
-                jLabel6 = new javax.swing.JLabel();
-                hargaMinuman = new javax.swing.JTextField();
                 jLabel7 = new javax.swing.JLabel();
-                jumlahMinuman = new javax.swing.JTextField();
                 jLabel8 = new javax.swing.JLabel();
+                air = new javax.swing.JCheckBox();
+                juice = new javax.swing.JCheckBox();
+                jumlahJuice = new javax.swing.JTextField();
+                jumlahAir = new javax.swing.JTextField();
+                jLabel19 = new javax.swing.JLabel();
+                hargaJuice = new javax.swing.JTextField();
+                hargaAir = new javax.swing.JTextField();
                 jPanel4 = new javax.swing.JPanel();
                 jLabel9 = new javax.swing.JLabel();
                 paketMakanan = new javax.swing.JComboBox<>();
@@ -93,6 +160,8 @@ public class FormOshiNe extends javax.swing.JFrame {
                 jLabel12 = new javax.swing.JLabel();
                 jumlahPaketMakanan = new javax.swing.JTextField();
                 jLabel13 = new javax.swing.JLabel();
+                namaPaket = new javax.swing.JTextField();
+                jLabel23 = new javax.swing.JLabel();
                 jPanel5 = new javax.swing.JPanel();
                 jLabel10 = new javax.swing.JLabel();
                 jenisPelayanan = new javax.swing.JComboBox<>();
@@ -111,6 +180,7 @@ public class FormOshiNe extends javax.swing.JFrame {
                 uangKembali = new javax.swing.JTextField();
                 jLabel18 = new javax.swing.JLabel();
                 tampilanTotal = new javax.swing.JTextField();
+                bersih = new javax.swing.JButton();
 
                 jLabel4.setText("jLabel4");
 
@@ -169,31 +239,78 @@ public class FormOshiNe extends javax.swing.JFrame {
                 jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
                 jLabel3.setText("PILIH MINUMAN");
 
-                minuman.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PILIH", "Air Mineral", "Juice" }));
-                minuman.addActionListener(new java.awt.event.ActionListener() {
-                        public void actionPerformed(java.awt.event.ActionEvent evt) {
-                                minumanActionPerformed(evt);
-                        }
-                });
-
-                jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-                jLabel6.setText("HARGA MINUMAN");
-
                 jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
                 jLabel7.setText("JUMLAH");
 
-                jumlahMinuman.addActionListener(new java.awt.event.ActionListener() {
+                jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+
+                air.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+                air.setText("Air Mineral");
+                air.addActionListener(new java.awt.event.ActionListener() {
                         public void actionPerformed(java.awt.event.ActionEvent evt) {
-                                jumlahMinumanActionPerformed(evt);
-                        }
-                });
-                jumlahMinuman.addKeyListener(new java.awt.event.KeyAdapter() {
-                        public void keyPressed(java.awt.event.KeyEvent evt) {
-                                jumlahMinumanKeyPressed(evt);
+                                airActionPerformed(evt);
                         }
                 });
 
-                jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+                juice.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+                juice.setText("Juice");
+                juice.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                juiceActionPerformed(evt);
+                        }
+                });
+                juice.addKeyListener(new java.awt.event.KeyAdapter() {
+                        public void keyPressed(java.awt.event.KeyEvent evt) {
+                                juiceKeyPressed(evt);
+                        }
+                });
+
+                jumlahJuice.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                jumlahJuiceActionPerformed(evt);
+                        }
+                });
+                jumlahJuice.addKeyListener(new java.awt.event.KeyAdapter() {
+                        public void keyPressed(java.awt.event.KeyEvent evt) {
+                                jumlahJuiceKeyPressed(evt);
+                        }
+                });
+
+                jumlahAir.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                jumlahAirActionPerformed(evt);
+                        }
+                });
+                jumlahAir.addKeyListener(new java.awt.event.KeyAdapter() {
+                        public void keyPressed(java.awt.event.KeyEvent evt) {
+                                jumlahAirKeyPressed(evt);
+                        }
+                });
+
+                jLabel19.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+                jLabel19.setText("HARGA");
+
+                hargaJuice.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                hargaJuiceActionPerformed(evt);
+                        }
+                });
+                hargaJuice.addKeyListener(new java.awt.event.KeyAdapter() {
+                        public void keyPressed(java.awt.event.KeyEvent evt) {
+                                hargaJuiceKeyPressed(evt);
+                        }
+                });
+
+                hargaAir.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                hargaAirActionPerformed(evt);
+                        }
+                });
+                hargaAir.addKeyListener(new java.awt.event.KeyAdapter() {
+                        public void keyPressed(java.awt.event.KeyEvent evt) {
+                                hargaAirKeyPressed(evt);
+                        }
+                });
 
                 javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
                 jPanel3.setLayout(jPanel3Layout);
@@ -202,42 +319,62 @@ public class FormOshiNe extends javax.swing.JFrame {
                         .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGap(16, 16, 16)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPanel3Layout.createSequentialGroup()
+                                                .addGap(21, 21, 21)
+                                                .addComponent(air, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addComponent(jLabel3)
-                                        .addComponent(jLabel6))
-                                .addGap(18, 18, 18)
+                                        .addComponent(juice, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(59, 59, 59)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jLabel7)
+                                                .addComponent(jumlahAir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(jumlahJuice, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(82, 82, 82)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(jPanel3Layout.createSequentialGroup()
-                                                .addComponent(hargaMinuman, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(jLabel8)
-                                                .addGap(87, 87, 87))
+                                                .addComponent(hargaJuice, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                         .addGroup(jPanel3Layout.createSequentialGroup()
-                                                .addComponent(minuman, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 111, Short.MAX_VALUE)
-                                                .addComponent(jLabel7)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(jumlahMinuman, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addContainerGap())))
+                                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(hargaAir, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(jLabel19))
+                                                .addGap(30, 112, Short.MAX_VALUE)
+                                                .addComponent(jLabel8)
+                                                .addGap(87, 87, 87))))
                 );
+
+                jPanel3Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jumlahAir, jumlahJuice});
+
                 jPanel3Layout.setVerticalGroup(
                         jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addGroup(jPanel3Layout.createSequentialGroup()
                                                 .addGap(34, 34, 34)
-                                                .addComponent(jLabel8))
+                                                .addComponent(jLabel8)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(air))
                                         .addGroup(jPanel3Layout.createSequentialGroup()
                                                 .addContainerGap()
                                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                                         .addComponent(jLabel3)
-                                                        .addComponent(minuman, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                         .addComponent(jLabel7)
-                                                        .addComponent(jumlahMinuman, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                .addGap(42, 42, 42)
+                                                        .addComponent(jLabel19))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                        .addComponent(hargaMinuman, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(jLabel6))))
-                                .addContainerGap(116, Short.MAX_VALUE))
+                                                        .addComponent(jumlahAir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(hargaAir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPanel3Layout.createSequentialGroup()
+                                                .addGap(18, 18, 18)
+                                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                        .addComponent(jumlahJuice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(hargaJuice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGroup(jPanel3Layout.createSequentialGroup()
+                                                .addGap(18, 18, 18)
+                                                .addComponent(juice)))
+                                .addContainerGap(132, Short.MAX_VALUE))
                 );
 
                 jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "PAKET MAKANAN", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12))); // NOI18N
@@ -271,31 +408,43 @@ public class FormOshiNe extends javax.swing.JFrame {
 
                 jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
 
+                namaPaket.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                namaPaketActionPerformed(evt);
+                        }
+                });
+
+                jLabel23.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+                jLabel23.setText("NAMA PAKET");
+
                 javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
                 jPanel4.setLayout(jPanel4Layout);
                 jPanel4Layout.setHorizontalGroup(
                         jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                                .addContainerGap(12, Short.MAX_VALUE)
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jLabel9)
-                                        .addComponent(jLabel11))
+                                        .addComponent(jLabel11)
+                                        .addComponent(jLabel23))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addGroup(jPanel4Layout.createSequentialGroup()
-                                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addGroup(jPanel4Layout.createSequentialGroup()
-                                                                .addGap(209, 209, 209)
-                                                                .addComponent(jLabel13))
-                                                        .addComponent(hargaPaketMakanan, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                .addGap(107, 107, 107))
-                                        .addGroup(jPanel4Layout.createSequentialGroup()
-                                                .addComponent(paketMakanan, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(jLabel12)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(jumlahPaketMakanan, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addContainerGap())))
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(namaPaket, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addGroup(jPanel4Layout.createSequentialGroup()
+                                                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                .addGroup(jPanel4Layout.createSequentialGroup()
+                                                                        .addGap(209, 209, 209)
+                                                                        .addComponent(jLabel13))
+                                                                .addComponent(hargaPaketMakanan, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                        .addGap(107, 107, 107))
+                                                .addGroup(jPanel4Layout.createSequentialGroup()
+                                                        .addComponent(paketMakanan, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                        .addComponent(jLabel12)
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                        .addComponent(jumlahPaketMakanan, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addContainerGap()))))
                 );
                 jPanel4Layout.setVerticalGroup(
                         jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -314,7 +463,11 @@ public class FormOshiNe extends javax.swing.JFrame {
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jLabel11)
                                         .addComponent(hargaPaketMakanan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addContainerGap(118, Short.MAX_VALUE))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel23)
+                                        .addComponent(namaPaket, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addContainerGap(102, Short.MAX_VALUE))
                 );
 
                 jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "JENIS PELAYANAN", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12))); // NOI18N
@@ -366,7 +519,7 @@ public class FormOshiNe extends javax.swing.JFrame {
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(tarif, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(jLabel15))
-                                .addContainerGap(118, Short.MAX_VALUE))
+                                .addContainerGap(142, Short.MAX_VALUE))
                 );
 
                 jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "TOTAL BAYAR", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12))); // NOI18N
@@ -423,6 +576,14 @@ public class FormOshiNe extends javax.swing.JFrame {
                         }
                 });
 
+                bersih.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+                bersih.setText("BERSIH");
+                bersih.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                bersihActionPerformed(evt);
+                        }
+                });
+
                 javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
                 jPanel6.setLayout(jPanel6Layout);
                 jPanel6Layout.setHorizontalGroup(
@@ -430,12 +591,15 @@ public class FormOshiNe extends javax.swing.JFrame {
                         .addGroup(jPanel6Layout.createSequentialGroup()
                                 .addGap(31, 31, 31)
                                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel22)
                                         .addGroup(jPanel6Layout.createSequentialGroup()
-                                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addComponent(jLabel16)
-                                                        .addComponent(jLabel18)
-                                                        .addComponent(jLabel21)
-                                                        .addComponent(jLabel14))
+                                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                        .addComponent(bersih)
+                                                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                .addComponent(jLabel16)
+                                                                .addComponent(jLabel18)
+                                                                .addComponent(jLabel21)
+                                                                .addComponent(jLabel14)))
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                                                         .addComponent(hargaTarif, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -444,8 +608,7 @@ public class FormOshiNe extends javax.swing.JFrame {
                                                         .addComponent(uangBayar, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                         .addComponent(uangKembali, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
                                                 .addGap(442, 442, 442)
-                                                .addComponent(jLabel20))
-                                        .addComponent(jLabel22))
+                                                .addComponent(jLabel20)))
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 );
                 jPanel6Layout.setVerticalGroup(
@@ -478,7 +641,9 @@ public class FormOshiNe extends javax.swing.JFrame {
                                                 .addComponent(uangBayar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(uangKembali, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addContainerGap(63, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                                .addComponent(bersih)
+                                .addGap(15, 15, 15))
                 );
 
                 javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -494,7 +659,7 @@ public class FormOshiNe extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 499, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 622, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 );
 
@@ -520,10 +685,6 @@ public class FormOshiNe extends javax.swing.JFrame {
                 pack();
         }// </editor-fold>//GEN-END:initComponents
 
-        private void jumlahMinumanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jumlahMinumanActionPerformed
-                // TODO add your handling code here:
-        }//GEN-LAST:event_jumlahMinumanActionPerformed
-
         private void jumlahPaketMakananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jumlahPaketMakananActionPerformed
                 // TODO add your handling code here:
         }//GEN-LAST:event_jumlahPaketMakananActionPerformed
@@ -535,9 +696,14 @@ public class FormOshiNe extends javax.swing.JFrame {
         private void paketMakananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paketMakananActionPerformed
                 // TODO add your handling code here:
 		if(paketMakanan.getSelectedItem().toString().equalsIgnoreCase("PILIH")){
+			// menjadi 0
+			menuHarga.setJumlahPaketMakanan(0);
+			menuHarga.setTotalBayar();
+			totalBayar.setText(String.valueOf(menuHarga.getTotalBayar()));
 
-			menuHarga.setHargaMinuman(minuman.getSelectedItem().toString());
-			hargaMinuman.setText(String.valueOf(menuHarga.getHargaMinuman()));
+			menuHarga.setHargaPaket(paketMakanan.getSelectedItem().toString());
+			namaPaket.setText("");
+			hargaPaketMakanan_off();
 			jumlahPaketMakanan_off();
 
 		}
@@ -545,23 +711,9 @@ public class FormOshiNe extends javax.swing.JFrame {
 			jumlahPaketMakanan_on();
 			menuHarga.setHargaPaket(paketMakanan.getSelectedItem().toString());
 			hargaPaketMakanan.setText(String.valueOf(menuHarga.getHargaPaket()));
+			namaPaket.setText(menuHarga.namaPaket);
 		}
         }//GEN-LAST:event_paketMakananActionPerformed
-
-        private void minumanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_minumanActionPerformed
-                // TODO add your handling code here:
-		if(minuman.getSelectedItem().toString().equalsIgnoreCase("PILIH")){
-			jumlahMinuman_off();
-
-			menuHarga.setHargaMinuman(minuman.getSelectedItem().toString());
-			hargaMinuman.setText(String.valueOf(menuHarga.getHargaMinuman()));
-		}
-		else{
-			jumlahMinuman_on();
-			menuHarga.setHargaMinuman(minuman.getSelectedItem().toString());
-			hargaMinuman.setText(String.valueOf(menuHarga.getHargaMinuman()));
-		}
-        }//GEN-LAST:event_minumanActionPerformed
 
         private void jumlahPaketMakananKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jumlahPaketMakananKeyPressed
                 // TODO add your handling code here:
@@ -579,23 +731,6 @@ public class FormOshiNe extends javax.swing.JFrame {
 			}
 		}
         }//GEN-LAST:event_jumlahPaketMakananKeyPressed
-
-        private void jumlahMinumanKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jumlahMinumanKeyPressed
-                // TODO add your handling code here:
-		if(evt.getKeyCode() == KeyEvent.VK_ENTER){
-			if(jumlahMinuman.getText().equalsIgnoreCase("")){
-				menuHarga.setJumlahMinuman(0);
-				menuHarga.setTotalBayar();
-				totalBayar.setText(String.valueOf(menuHarga.getTotalBayar()));
-
-			}
-			else {
-				menuHarga.setJumlahMinuman(Integer.parseInt(jumlahMinuman.getText()));
-				menuHarga.setTotalBayar();
-				totalBayar.setText(String.valueOf(menuHarga.getTotalBayar()));
-			}
-		}
-        }//GEN-LAST:event_jumlahMinumanKeyPressed
 
         private void jenisPelayananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jenisPelayananActionPerformed
                 // TODO add your handling code here:
@@ -639,11 +774,121 @@ public class FormOshiNe extends javax.swing.JFrame {
 		if(evt.getKeyCode() == KeyEvent.VK_ENTER){
 			menuHarga.setUangBayar(Double.parseDouble(uangBayar.getText()));
 
-			menuHarga.setUangKembali();
-			uangKembali.setText(String.valueOf(menuHarga.getUangKembali()));
+			if(menuHarga.getUangBayar() >= menuHarga.getTotal()){
+				menuHarga.setUangKembali();
+				uangKembali.setText(String.valueOf(menuHarga.getUangKembali()));
+			}
+			else {
+				menuHarga.setUangBayar(0);
+				uangBayar.setText("");
+				JOptionPane.showMessageDialog(null, "Pembayaran Kurang!", "Warning", JOptionPane.OK_OPTION);
+				
+			}
 
 		}
         }//GEN-LAST:event_uangBayarKeyPressed
+
+        private void bersihActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bersihActionPerformed
+                // TODO add your handling code here:
+		bersih();
+        }//GEN-LAST:event_bersihActionPerformed
+
+        private void jumlahJuiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jumlahJuiceActionPerformed
+                // TODO add your handling code here:
+        }//GEN-LAST:event_jumlahJuiceActionPerformed
+
+        private void jumlahJuiceKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jumlahJuiceKeyPressed
+                // TODO add your handling code here:
+		if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+			menuHarga.setJuice(Integer.parseInt(jumlahJuice.getText()));
+			hargaJuice.setText(String.valueOf(menuHarga.getJuice()));
+			menuHarga.setTotalBayar();
+			totalBayar.setText(String.valueOf(menuHarga.getTotalBayar()));
+
+		}
+        }//GEN-LAST:event_jumlahJuiceKeyPressed
+
+        private void jumlahAirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jumlahAirActionPerformed
+                // TODO add your handling code here:
+        }//GEN-LAST:event_jumlahAirActionPerformed
+
+        private void jumlahAirKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jumlahAirKeyPressed
+                // TODO add your handling code here:
+		if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+			menuHarga.setAir(Integer.parseInt(jumlahAir.getText()));
+			hargaAir.setText(String.valueOf(menuHarga.getAir()));
+			menuHarga.setTotalBayar();
+			totalBayar.setText(String.valueOf(menuHarga.getTotalBayar()));
+
+
+		}
+        }//GEN-LAST:event_jumlahAirKeyPressed
+
+        private void airActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_airActionPerformed
+                // TODO add your handling code here:
+		if(air.isSelected()){
+			menuHarga.setAir(1);
+			jumlahAir.setText("1");
+			hargaAir.setText(String.valueOf(menuHarga.getAir()));
+			menuHarga.setTotalBayar();
+			totalBayar.setText(String.valueOf(menuHarga.getTotalBayar()));
+
+
+		}
+		else{
+			menuHarga.setAir(0);
+			jumlahAir.setText("");
+			hargaAir.setText("");
+			menuHarga.setTotalBayar();
+			totalBayar.setText(String.valueOf(menuHarga.getTotalBayar()));
+
+		}
+        }//GEN-LAST:event_airActionPerformed
+
+        private void hargaJuiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hargaJuiceActionPerformed
+                // TODO add your handling code here:
+        }//GEN-LAST:event_hargaJuiceActionPerformed
+
+        private void hargaJuiceKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_hargaJuiceKeyPressed
+                // TODO add your handling code here:
+        }//GEN-LAST:event_hargaJuiceKeyPressed
+
+        private void hargaAirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hargaAirActionPerformed
+                // TODO add your handling code here:
+        }//GEN-LAST:event_hargaAirActionPerformed
+
+        private void hargaAirKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_hargaAirKeyPressed
+                // TODO add your handling code here:
+        }//GEN-LAST:event_hargaAirKeyPressed
+
+        private void juiceKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_juiceKeyPressed
+                // TODO add your handling code here:
+        }//GEN-LAST:event_juiceKeyPressed
+
+        private void juiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_juiceActionPerformed
+                // TODO add your handling code here:
+		if(juice.isSelected()){
+			menuHarga.setJuice(1);
+			jumlahJuice.setText("1");
+			hargaJuice.setText(String.valueOf(menuHarga.getJuice()));
+			menuHarga.setTotalBayar();
+			totalBayar.setText(String.valueOf(menuHarga.getTotalBayar()));
+			
+
+		}
+		else{
+			menuHarga.setJuice(0);
+			jumlahJuice.setText("");
+			hargaJuice.setText("");
+			menuHarga.setTotalBayar();
+			totalBayar.setText(String.valueOf(menuHarga.getTotalBayar()));
+
+		}
+        }//GEN-LAST:event_juiceActionPerformed
+
+        private void namaPaketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_namaPaketActionPerformed
+                // TODO add your handling code here:
+        }//GEN-LAST:event_namaPaketActionPerformed
 
 	/**
 	 * @param args the command line arguments
@@ -681,7 +926,11 @@ public class FormOshiNe extends javax.swing.JFrame {
 	}
 
         // Variables declaration - do not modify//GEN-BEGIN:variables
-        private javax.swing.JTextField hargaMinuman;
+        private javax.swing.JCheckBox air;
+        private javax.swing.JButton bersih;
+        private javax.swing.ButtonGroup buttonGroup1;
+        private javax.swing.JTextField hargaAir;
+        private javax.swing.JTextField hargaJuice;
         private javax.swing.JTextField hargaPaketMakanan;
         private javax.swing.JTextField hargaTarif;
         private javax.swing.JLabel jLabel1;
@@ -694,13 +943,14 @@ public class FormOshiNe extends javax.swing.JFrame {
         private javax.swing.JLabel jLabel16;
         private javax.swing.JLabel jLabel17;
         private javax.swing.JLabel jLabel18;
+        private javax.swing.JLabel jLabel19;
         private javax.swing.JLabel jLabel2;
         private javax.swing.JLabel jLabel20;
         private javax.swing.JLabel jLabel21;
         private javax.swing.JLabel jLabel22;
+        private javax.swing.JLabel jLabel23;
         private javax.swing.JLabel jLabel3;
         private javax.swing.JLabel jLabel4;
-        private javax.swing.JLabel jLabel6;
         private javax.swing.JLabel jLabel7;
         private javax.swing.JLabel jLabel8;
         private javax.swing.JLabel jLabel9;
@@ -711,9 +961,11 @@ public class FormOshiNe extends javax.swing.JFrame {
         private javax.swing.JPanel jPanel5;
         private javax.swing.JPanel jPanel6;
         private javax.swing.JComboBox<String> jenisPelayanan;
-        private javax.swing.JTextField jumlahMinuman;
+        private javax.swing.JCheckBox juice;
+        private javax.swing.JTextField jumlahAir;
+        private javax.swing.JTextField jumlahJuice;
         private javax.swing.JTextField jumlahPaketMakanan;
-        private javax.swing.JComboBox<String> minuman;
+        private javax.swing.JTextField namaPaket;
         private javax.swing.JComboBox<String> paketMakanan;
         private javax.swing.JTextField tampilanTotal;
         private javax.swing.JTextField tarif;

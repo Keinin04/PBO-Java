@@ -9,10 +9,11 @@ package rumahmakan;
  * @author rifky
  */
 public class Menu {
-	int hargaPaket,hargaMinuman,jumlahMinuman,jumlahPaketMakanan,totalBayar;
+	int hargaPaket,air,juice,hargaMinuman,jumlahMinuman,jumlahPaketMakanan,totalBayar;
 	double hargaTarif,uangBayar,uangKembali,total;
 
 	String pelayanan;
+	String namaPaket;
 	double tarif;
 
 
@@ -27,19 +28,40 @@ public class Menu {
 	public void setHargaPaket(String paket) {
 		if(paket.equalsIgnoreCase(("PAKET 1"))){
 			this.hargaPaket = 10000;
+			this.namaPaket = "Nasi padang teriyaki";
 
 		}
 		else if(paket.equalsIgnoreCase(("PAKET 2"))){
 			this.hargaPaket = 15000;
+			this.namaPaket = "Nasi padang sushi";
 
 		}
 		else if(paket.equalsIgnoreCase(("PAKET 3"))){
 			this.hargaPaket = 18000;
+			this.namaPaket = "Nasi goreng teriyaki ";
 		}
 		else {
 			this.hargaPaket = 0;
 		}
 	}
+
+	public int getAir() {
+		return air;
+	}
+
+	public void setAir(int air) {
+
+		this.air = 10000 * air;
+	}
+
+	public int getJuice() {
+		return juice;
+	}
+
+	public void setJuice(int juice) {
+		this.juice = 13000 * juice;
+	}
+	
 
 	public int getJumlahPaketMakanan() {
 		return jumlahPaketMakanan;
@@ -54,18 +76,9 @@ public class Menu {
 		return hargaMinuman;
 	}
 
-	public void setHargaMinuman(String minuman) {
-		if(minuman.equalsIgnoreCase(("Air Mineral"))){
-			this.hargaMinuman = 10000;
 
-		}
-		else if(minuman.equalsIgnoreCase(("Juice"))){
-			this.hargaMinuman = 13000;
-
-		}
-		else {
-			this.hargaMinuman = 0;
-		}
+	public void setHargaMinuman() {
+		hargaMinuman = getAir() + getJuice();
 
 	}
 
@@ -83,7 +96,7 @@ public class Menu {
 	}
 
 	public void setTotalBayar() {
-		this.totalBayar = (hargaPaket * jumlahPaketMakanan) + (hargaMinuman * jumlahMinuman); 
+		this.totalBayar = (hargaPaket * jumlahPaketMakanan) + (getAir() + getJuice()); 
 	}
 
 	public String getPelayanan() {
