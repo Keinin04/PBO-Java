@@ -1,4 +1,5 @@
-Pertama harus download xampp buat menjalankan sql untuk database
+Pertama harus download xampp buat menjalankan sql untuk database.
+https://www.apachefriends.org/download.html
 
 setelah mendownload. jalankan aplikasi xampp nya dengan run administrator.
 
