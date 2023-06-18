@@ -1,0 +1,1 @@
+Pertama harus download xampp buat menjalankan sql untuk database
