@@ -1,0 +1,646 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ */
+
+/**
+ *
+ * @author rifky
+ */
+import java.awt.event.KeyEvent;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.PreparedStatement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import java.time.LocalDate;
+import javax.swing.JFrame;
+
+// packege untuk listen list table
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.ListSelectionModel;
+
+public class Form_pencarian_buku extends javax.swing.JFrame {
+
+	/**
+	 * Creates new form Form_pencarian_buku
+	 */
+	public Form_pencarian_buku() {
+		initComponents();
+		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		pinjam_off();
+		tidak_off();
+		refreshBuku();
+
+		table_pencarianBukuEventListener();
+
+
+	}
+
+
+	private void pinjam_on(){
+		pinjam.setEnabled(true);
+	}
+	private void pinjam_off(){
+		pinjam.setEnabled(false);
+	}
+
+	private void tidak_on(){
+		tidak.setEnabled(true);
+	}
+	private void tidak_off(){
+		tidak.setEnabled(false);
+	}
+
+
+	private void table_pencarianBukuEventListener(){
+		// listener table 
+
+		ListSelectionModel selectionModel = table_pencarianBuku.getSelectionModel();
+		selectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		selectionModel.addListSelectionListener(new ListSelectionListener(){
+			@Override
+			public void valueChanged(ListSelectionEvent evt){
+				if(!evt.getValueIsAdjusting()){
+					tidak_on();
+
+
+
+					int selectedRow = table_pencarianBuku.getSelectedRow();
+					if(selectedRow != -1){
+						// Mendapatkan nilai dari baris yang dipilih
+						String kode_buku = table_pencarianBuku.getValueAt(selectedRow, 0).toString();
+						String judul_buku = table_pencarianBuku.getValueAt(selectedRow, 1).toString();
+						String pengarang = table_pencarianBuku.getValueAt(selectedRow, 2).toString();
+						String penerbit  = table_pencarianBuku.getValueAt(selectedRow, 3).toString();
+						String tahun_terbit = table_pencarianBuku.getValueAt(selectedRow, 4).toString();
+						String status = table_pencarianBuku.getValueAt(selectedRow, 5).toString();
+
+						// Memasukannya ke textfield
+
+						kodeBuku.setText(kode_buku);
+						judulBuku.setText(judul_buku);
+						pengarangTxt.setText(pengarang);
+						penerbitTxt.setText(penerbit);
+						tahunTerbit.setText(tahun_terbit);
+
+						// cek status
+						if(status.equalsIgnoreCase("Tersedia")){
+							pinjam_on();
+						} else {
+							pinjam_off();
+						}
+
+						
+
+					}
+				}
+			}
+		});
+
+	}
+
+	private LocalDate getDuaMInggu(){
+		LocalDate currentDate = LocalDate.now();
+		LocalDate futureDate = currentDate.plusWeeks(2);
+		return futureDate;
+	}
+
+	private void clearTextField(){
+		kodeBuku.setText("");
+		judulBuku.setText("");
+		pengarangTxt.setText("");
+		penerbitTxt.setText("");
+		tahunTerbit.setText("");
+	}
+
+	private void refreshBuku(){
+		try {
+			koneksi_db.openConnection();
+			try (Statement statement = (Statement) koneksi_db.getConnection().createStatement()) {
+				ResultSet result;
+				String sql = "SELECT * FROM `data_buku`";
+				statement.execute(sql);
+				result = statement.getResultSet();
+
+				
+				
+				// Mendapatkan model tabel dari table_pencarianBuku
+				DefaultTableModel tableModel = (DefaultTableModel) table_pencarianBuku.getModel();
+				
+				
+				// menghapus semua baris yang ada dimodel table
+				tableModel.setRowCount(0);
+				
+				// Iterasi melalui ResultSet dan tambahkan baris ke model tabel
+				while (result.next()) {
+					Object[] rowData = {
+						result.getString("kode_buku"),
+						result.getString("judul_buku"),
+						result.getString("pengarang"),
+						result.getString("penerbit"),
+						result.getString("tahun_terbit"),
+						result.getString("status")
+					};
+					tableModel.addRow(rowData);
+				}
+				
+				result.close();
+				statement.close();
+			}
+			
+
+			
+
+		} catch (SQLException ex) {
+			Logger.getLogger(Form_pencarian_buku.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		
+
+	}
+
+	private void updateDataBuku(){
+
+		
+		try {
+				String sql = "UPDATE data_buku SET status = ? WHERE kode_buku = "+kodeBuku.getText();
+				PreparedStatement statement = koneksi_db.conn.prepareStatement(sql);
+
+				statement.setString(1, "Dipinjam");
+
+				statement.executeUpdate();
+
+				statement.close();
+
+		} catch (SQLException ex) {
+			Logger.getLogger(Form_pencarian_buku.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
+
+
+
+
+	/**
+	 * This method is called from within the constructor to initialize the
+	 * form. WARNING: Do NOT modify this code. The content of this method is
+	 * always regenerated by the Form Editor.
+	 */
+	@SuppressWarnings("unchecked")
+        // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+        private void initComponents() {
+
+                jPanel1 = new javax.swing.JPanel();
+                pencarianbuku_label = new javax.swing.JLabel();
+                jPanel4 = new javax.swing.JPanel();
+                kodeBuku = new javax.swing.JTextField();
+                jLabel2 = new javax.swing.JLabel();
+                jLabel3 = new javax.swing.JLabel();
+                jLabel4 = new javax.swing.JLabel();
+                penerbitTxt = new javax.swing.JTextField();
+                tahunTerbit = new javax.swing.JTextField();
+                jLabel5 = new javax.swing.JLabel();
+                pinjam = new javax.swing.JButton();
+                tidak = new javax.swing.JButton();
+                jScrollPane2 = new javax.swing.JScrollPane();
+                table_pencarianBuku = new javax.swing.JTable();
+                pengarangTxt = new javax.swing.JTextField();
+                jLabel11 = new javax.swing.JLabel();
+                judulBuku = new javax.swing.JTextField();
+                cariTxt = new javax.swing.JTextField();
+                cari = new javax.swing.JButton();
+                jMenuBar1 = new javax.swing.JMenuBar();
+                Back = new javax.swing.JMenu();
+                Logout = new javax.swing.JMenu();
+
+                setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+                jPanel1.setBackground(new java.awt.Color(152, 180, 212));
+                jPanel1.setToolTipText("");
+
+                pencarianbuku_label.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+                pencarianbuku_label.setText("PENCARIAN BUKU");
+
+                javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+                jPanel1.setLayout(jPanel1Layout);
+                jPanel1Layout.setHorizontalGroup(
+                        jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(17, 17, 17)
+                                .addComponent(pencarianbuku_label)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                );
+                jPanel1Layout.setVerticalGroup(
+                        jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(15, 15, 15)
+                                .addComponent(pencarianbuku_label)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                );
+
+                jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "PENCARIAN BUKU", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12))); // NOI18N
+
+                kodeBuku.setEditable(false);
+                kodeBuku.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                kodeBukuActionPerformed(evt);
+                        }
+                });
+
+                jLabel2.setText("Kode buku");
+
+                jLabel3.setText("Judul Buku");
+
+                jLabel4.setText("Penerbit");
+
+                penerbitTxt.setEditable(false);
+                penerbitTxt.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                penerbitTxtActionPerformed(evt);
+                        }
+                });
+
+                tahunTerbit.setEditable(false);
+                tahunTerbit.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                tahunTerbitActionPerformed(evt);
+                        }
+                });
+
+                jLabel5.setText("Tahun Terbit");
+
+                pinjam.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+                pinjam.setText("PINJAM");
+                pinjam.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                pinjamActionPerformed(evt);
+                        }
+                });
+
+                tidak.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+                tidak.setText("TIDAK");
+                tidak.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                tidakActionPerformed(evt);
+                        }
+                });
+
+                jScrollPane2.setToolTipText("");
+
+                table_pencarianBuku.setModel(new javax.swing.table.DefaultTableModel(
+                        new Object [][] {
+
+                        },
+                        new String [] {
+                                "Kode Buku", "Judul Buku", "Pengarang", "Penerbit", "Tahun Terbit", "Status"
+                        }
+                ));
+                jScrollPane2.setViewportView(table_pencarianBuku);
+
+                pengarangTxt.setEditable(false);
+                pengarangTxt.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                pengarangTxtActionPerformed(evt);
+                        }
+                });
+
+                jLabel11.setText("Pengarang");
+
+                judulBuku.setEditable(false);
+                judulBuku.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                judulBukuActionPerformed(evt);
+                        }
+                });
+
+                javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+                jPanel4.setLayout(jPanel4Layout);
+                jPanel4Layout.setHorizontalGroup(
+                        jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGap(14, 14, 14)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 953, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPanel4Layout.createSequentialGroup()
+                                                .addGap(14, 14, 14)
+                                                .addComponent(pinjam)
+                                                .addGap(121, 121, 121)
+                                                .addComponent(tidak))
+                                        .addGroup(jPanel4Layout.createSequentialGroup()
+                                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(jLabel5)
+                                                        .addComponent(jLabel4))
+                                                .addGap(29, 29, 29)
+                                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                        .addComponent(tahunTerbit, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(penerbitTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGroup(jPanel4Layout.createSequentialGroup()
+                                                .addComponent(jLabel11)
+                                                .addGap(38, 38, 38)
+                                                .addComponent(pengarangTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(jPanel4Layout.createSequentialGroup()
+                                                .addComponent(jLabel2)
+                                                .addGap(39, 39, 39)
+                                                .addComponent(kodeBuku, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(jPanel4Layout.createSequentialGroup()
+                                                .addComponent(jLabel3)
+                                                .addGap(40, 40, 40)
+                                                .addComponent(judulBuku, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(17, 17, 17))
+                );
+
+                jPanel4Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {judulBuku, pengarangTxt});
+
+                jPanel4Layout.setVerticalGroup(
+                        jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(kodeBuku, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel2))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(judulBuku, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel3))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(pengarangTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel11))
+                                .addGap(8, 8, 8)
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(penerbitTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel4))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(tahunTerbit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel5))
+                                .addGap(29, 29, 29)
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(pinjam)
+                                        .addComponent(tidak))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 456, Short.MAX_VALUE)
+                                .addContainerGap())
+                );
+
+                cariTxt.addKeyListener(new java.awt.event.KeyAdapter() {
+                        public void keyPressed(java.awt.event.KeyEvent evt) {
+                                cariTxtKeyPressed(evt);
+                        }
+                });
+
+                cari.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+                cari.setText("CARI");
+                cari.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                cariActionPerformed(evt);
+                        }
+                });
+
+                Back.setText("Back");
+                Back.addMouseListener(new java.awt.event.MouseAdapter() {
+                        public void mouseClicked(java.awt.event.MouseEvent evt) {
+                                BackMouseClicked(evt);
+                        }
+                });
+                jMenuBar1.add(Back);
+
+                Logout.setText("Logout");
+                Logout.addMouseListener(new java.awt.event.MouseAdapter() {
+                        public void mouseClicked(java.awt.event.MouseEvent evt) {
+                                LogoutMouseClicked(evt);
+                        }
+                });
+                jMenuBar1.add(Logout);
+
+                setJMenuBar(jMenuBar1);
+
+                javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+                getContentPane().setLayout(layout);
+                layout.setHorizontalGroup(
+                        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createSequentialGroup()
+                                .addGap(221, 221, 221)
+                                .addComponent(cariTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(26, 26, 26)
+                                .addComponent(cari)
+                                .addContainerGap(750, Short.MAX_VALUE))
+                );
+                layout.setVerticalGroup(
+                        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(cariTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(cari))
+                                .addGap(10, 10, 10)
+                                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addContainerGap())
+                );
+
+                pack();
+        }// </editor-fold>//GEN-END:initComponents
+
+        private void kodeBukuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kodeBukuActionPerformed
+                // TODO add your handling code here:
+        }//GEN-LAST:event_kodeBukuActionPerformed
+
+        private void penerbitTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_penerbitTxtActionPerformed
+                // TODO add your handling code here:
+        }//GEN-LAST:event_penerbitTxtActionPerformed
+
+        private void tahunTerbitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tahunTerbitActionPerformed
+                // TODO add your handling code here:
+        }//GEN-LAST:event_tahunTerbitActionPerformed
+
+        private void cariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cariActionPerformed
+                // TODO add your handling code here:
+		try {
+			koneksi_db.openConnection();
+			try (Statement statement = (Statement) koneksi_db.getConnection().createStatement()) {
+				ResultSet result;
+				String sql = "SELECT * FROM `data_buku` WHERE kode_buku LIKE '%"+cariTxt.getText()+"%' OR judul_buku LIKE '%"+cariTxt.getText()+"%' OR pengarang LIKE '%"+cariTxt.getText()+"%' OR penerbit LIKE '%"+cariTxt.getText()+"%' OR tahun_terbit LIKE '%"+cariTxt.getText()+"%'";
+				statement.execute(sql);
+				result = statement.getResultSet();
+				
+				// Mendapatkan model tabel dari table_pencarianBuku
+				DefaultTableModel tableModel = (DefaultTableModel) table_pencarianBuku.getModel();
+				
+				
+				// menghapus semua baris yang ada dimodel table
+				tableModel.setRowCount(0);
+				
+				// Iterasi melalui ResultSet dan tambahkan baris ke model tabel
+				while (result.next()) {
+					Object[] rowData = {
+						result.getString("kode_buku"),
+						result.getString("judul_buku"),
+						result.getString("pengarang"),
+						result.getString("penerbit"),
+						result.getString("tahun_terbit"),
+						result.getString("status")
+					};
+					tableModel.addRow(rowData);
+				}
+				
+				result.close();
+				statement.close();
+			}
+			
+		} catch (SQLException ex) {
+			Logger.getLogger(Form_login.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		
+		
+        }//GEN-LAST:event_cariActionPerformed
+
+        private void tidakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tidakActionPerformed
+			// TODO add your handling code here:
+		kodeBuku.setText("");
+		judulBuku.setText("");
+		pengarangTxt.setText("");
+		penerbitTxt.setText("");
+		tahunTerbit.setText("");
+
+		refreshBuku();
+
+		pinjam_off();
+		tidak_off();
+
+        }//GEN-LAST:event_tidakActionPerformed
+
+        private void pinjamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pinjamActionPerformed
+		// TODO add your handling code here:
+		try {
+			if(Form_utama.getUsername() != null){
+				String sql = "INSERT INTO data_peminjaman (nim, nama, kode_buku, judul_buku, tanggal_pinjam, tanggal_kembali) VALUES (?, ?, ?, ?, ?, ?)";
+				PreparedStatement statement = koneksi_db.conn.prepareStatement(sql);
+
+				statement.setInt(1, Integer.parseInt(Form_utama.getUsername()));
+				statement.setString(2, Form_utama.getNama());
+				statement.setInt(3, Integer.parseInt(kodeBuku.getText()));
+				statement.setString(4, judulBuku.getText());
+				statement.setDate(5, java.sql.Date.valueOf(LocalDate.now()));
+				statement.setDate(6,java.sql.Date.valueOf(getDuaMInggu()));
+
+				int rowInserted = statement.executeUpdate();
+				if (rowInserted > 0){
+					JOptionPane.showMessageDialog(rootPane, "Buku "+judulBuku.getText()+ " Berhasil dipinjam.");
+					updateDataBuku();
+					refreshBuku();
+					clearTextField();
+				}
+				else {
+					JOptionPane.showMessageDialog(rootPane, "Gagal");
+					clearTextField();
+				}
+
+			}
+			else {
+				JOptionPane.showMessageDialog(rootPane, "Harap Login Ulang");
+				new Form_login().show();
+				this.dispose();
+			}
+			
+
+		} catch (SQLException ex) {
+			Logger.getLogger(Form_pencarian_buku.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		
+        }//GEN-LAST:event_pinjamActionPerformed
+
+        private void pengarangTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pengarangTxtActionPerformed
+                // TODO add your handling code here:
+        }//GEN-LAST:event_pengarangTxtActionPerformed
+
+        private void judulBukuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_judulBukuActionPerformed
+                // TODO add your handling code here:
+        }//GEN-LAST:event_judulBukuActionPerformed
+
+        private void BackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BackMouseClicked
+                // TODO add your handling code here:
+		new Form_utama().show();
+		this.dispose();
+        }//GEN-LAST:event_BackMouseClicked
+
+        private void LogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LogoutMouseClicked
+                // TODO add your handling code here:
+		new Form_login().show();
+		this.dispose();
+        }//GEN-LAST:event_LogoutMouseClicked
+
+        private void cariTxtKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cariTxtKeyPressed
+                // TODO add your handling code here:
+		if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+			cari.doClick();
+		}
+        }//GEN-LAST:event_cariTxtKeyPressed
+
+	/**
+	 * @param args the command line arguments
+	 */
+	public static void main(String args[]) {
+		/* Set the Nimbus look and feel */
+		//<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+		/* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+		 */
+		try {
+			for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+				if ("Nimbus".equals(info.getName())) {
+					javax.swing.UIManager.setLookAndFeel(info.getClassName());
+					break;
+				}
+			}
+		} catch (ClassNotFoundException ex) {
+			java.util.logging.Logger.getLogger(Form_pencarian_buku.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+		} catch (InstantiationException ex) {
+			java.util.logging.Logger.getLogger(Form_pencarian_buku.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+		} catch (IllegalAccessException ex) {
+			java.util.logging.Logger.getLogger(Form_pencarian_buku.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+		} catch (javax.swing.UnsupportedLookAndFeelException ex) {
+			java.util.logging.Logger.getLogger(Form_pencarian_buku.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+		}
+		//</editor-fold>
+
+		/* Create and display the form */
+		java.awt.EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				new Form_pencarian_buku().setVisible(true);
+			}
+		});
+	}
+
+        // Variables declaration - do not modify//GEN-BEGIN:variables
+        private javax.swing.JMenu Back;
+        private javax.swing.JMenu Logout;
+        private javax.swing.JButton cari;
+        private javax.swing.JTextField cariTxt;
+        private javax.swing.JLabel jLabel11;
+        private javax.swing.JLabel jLabel2;
+        private javax.swing.JLabel jLabel3;
+        private javax.swing.JLabel jLabel4;
+        private javax.swing.JLabel jLabel5;
+        private javax.swing.JMenuBar jMenuBar1;
+        private javax.swing.JPanel jPanel1;
+        private javax.swing.JPanel jPanel4;
+        private javax.swing.JScrollPane jScrollPane2;
+        private javax.swing.JTextField judulBuku;
+        private javax.swing.JTextField kodeBuku;
+        private javax.swing.JLabel pencarianbuku_label;
+        private javax.swing.JTextField penerbitTxt;
+        private javax.swing.JTextField pengarangTxt;
+        private javax.swing.JButton pinjam;
+        private javax.swing.JTable table_pencarianBuku;
+        private javax.swing.JTextField tahunTerbit;
+        private javax.swing.JButton tidak;
+        // End of variables declaration//GEN-END:variables
+}
