@@ -23,6 +23,9 @@ import javax.swing.JFrame;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.ListSelectionModel;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableColumnModel;
+import javax.swing.table.DefaultTableCellRenderer;
 
 public class Form_pencarian_buku extends javax.swing.JFrame {
 
@@ -34,8 +37,8 @@ public class Form_pencarian_buku extends javax.swing.JFrame {
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		pinjam_off();
 		tidak_off();
-		refreshBuku();
 
+		refreshBuku();
 		table_pencarianBukuEventListener();
 
 
@@ -56,7 +59,20 @@ public class Form_pencarian_buku extends javax.swing.JFrame {
 		tidak.setEnabled(false);
 	}
 
+	private LocalDate getDuaMInggu(){
+		LocalDate currentDate = LocalDate.now();
+		LocalDate futureDate = currentDate.plusWeeks(2);
+		return futureDate;
+	}
 
+	private void clearTextField(){
+		kodeBuku.setText("");
+		judulBuku.setText("");
+		pengarangTxt.setText("");
+		penerbitTxt.setText("");
+		tahunTerbit.setText("");
+	}
+// table
 	private void table_pencarianBukuEventListener(){
 		// listener table 
 
@@ -104,19 +120,6 @@ public class Form_pencarian_buku extends javax.swing.JFrame {
 
 	}
 
-	private LocalDate getDuaMInggu(){
-		LocalDate currentDate = LocalDate.now();
-		LocalDate futureDate = currentDate.plusWeeks(2);
-		return futureDate;
-	}
-
-	private void clearTextField(){
-		kodeBuku.setText("");
-		judulBuku.setText("");
-		pengarangTxt.setText("");
-		penerbitTxt.setText("");
-		tahunTerbit.setText("");
-	}
 
 	private void refreshBuku(){
 		try {
@@ -148,6 +151,12 @@ public class Form_pencarian_buku extends javax.swing.JFrame {
 					};
 					tableModel.addRow(rowData);
 				}
+
+
+				
+				
+
+
 				
 				result.close();
 				statement.close();
@@ -298,6 +307,9 @@ public class Form_pencarian_buku extends javax.swing.JFrame {
                                 "Kode Buku", "Judul Buku", "Pengarang", "Penerbit", "Tahun Terbit", "Status"
                         }
                 ));
+                table_pencarianBuku.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_NEXT_COLUMN);
+                table_pencarianBuku.setAutoscrolls(false);
+                table_pencarianBuku.setShowGrid(false);
                 jScrollPane2.setViewportView(table_pencarianBuku);
 
                 pengarangTxt.setEditable(false);

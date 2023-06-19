@@ -57,14 +57,18 @@ public class Form_kembalikan_buku extends javax.swing.JFrame {
 		dendaDialog.pack();
 		dendaDialog.setLocationRelativeTo(null);
 		dendaDialog.setVisible(true);
-		bayar.requestFocus();
+		uangBayar.requestFocus();
+		bayar.setEnabled(false);
+		
+
+		hitungHargaDenda();
 
 	}
 
 	private int hitungHargaDenda(){
 		Long hariIni = LocalDate.now().toEpochDay();
 		Long hariKelewat = LocalDate.parse(tanggalKembali.getText()).toEpochDay();
-		int hari = (int) (hariKelewat - hariIni);
+		int hari = (int) (hariIni- hariKelewat);
 		int harga= 2000 * hari;
 		this.hargaDenda.setText(String.valueOf(harga));
 		return harga;
@@ -78,14 +82,17 @@ public class Form_kembalikan_buku extends javax.swing.JFrame {
 			int uangKembali = hargaBayar - hitungHargaDenda();
 
 			// menampilkan uang kembali
-			if(hargaBayar > 0){
+			if(uangKembali > 0){
 				JOptionPane.showMessageDialog(rootPane, "Uang kembali : "+uangKembali);
 			}
 
 
-			menghapusDataPeminjaman();
 			updateDataBuku();
+			menghapusDataPeminjaman();
 			refershBukuPeminjaman();
+
+			dendaDialog.dispose();
+
 
 
 			
@@ -94,6 +101,7 @@ public class Form_kembalikan_buku extends javax.swing.JFrame {
 			JOptionPane.showMessageDialog(null, "Uangnya Kurang!", "Warning", JOptionPane.OK_OPTION);
 			uangBayar.setText("");
 		}
+
 
 		
 	}
@@ -209,6 +217,9 @@ public class Form_kembalikan_buku extends javax.swing.JFrame {
 		} 
 		
 	}
+	
+
+
 
 	private void updateDataBuku(){
 		try {
@@ -268,6 +279,12 @@ public class Form_kembalikan_buku extends javax.swing.JFrame {
 
                 hargaDenda.setEditable(false);
 
+                uangBayar.addKeyListener(new java.awt.event.KeyAdapter() {
+                        public void keyTyped(java.awt.event.KeyEvent evt) {
+                                uangBayarKeyTyped(evt);
+                        }
+                });
+
                 jLabel7.setText("Masukan Uang");
 
                 bayar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -302,6 +319,11 @@ public class Form_kembalikan_buku extends javax.swing.JFrame {
 
                 tidakBayar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
                 tidakBayar.setText("NANTI");
+                tidakBayar.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                tidakBayarActionPerformed(evt);
+                        }
+                });
 
                 javax.swing.GroupLayout dendaDialogLayout = new javax.swing.GroupLayout(dendaDialog.getContentPane());
                 dendaDialog.getContentPane().setLayout(dendaDialogLayout);
@@ -506,7 +528,7 @@ public class Form_kembalikan_buku extends javax.swing.JFrame {
 				LocalDate hariIni = LocalDate.now();
 				LocalDate tanggal = LocalDate.parse(tanggalKembali.getText());
 
-				if(hariIni.isBefore(tanggal)){
+				if(!hariIni.isAfter(tanggal)){
 					// menghapus peminjaman
 					updateDataBuku();
 					menghapusDataPeminjaman();
@@ -546,6 +568,26 @@ public class Form_kembalikan_buku extends javax.swing.JFrame {
 		new Form_login().show();
 		this.dispose();
         }//GEN-LAST:event_LogoutMouseClicked
+
+        private void tidakBayarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tidakBayarActionPerformed
+                // TODO add your handling code here:
+		dendaDialog.dispose();
+        }//GEN-LAST:event_tidakBayarActionPerformed
+
+        private void uangBayarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_uangBayarKeyTyped
+                // TODO add your handling code here:
+		char c = evt.getKeyChar();
+		if(!Character.isDigit(c)){
+			evt.consume();
+		}
+
+		if(uangBayar.getText().isBlank()){
+			bayar.setEnabled(false);
+		}
+		else{
+			bayar.setEnabled(true);
+		}
+        }//GEN-LAST:event_uangBayarKeyTyped
 
 	/**
 	 * @param args the command line arguments
