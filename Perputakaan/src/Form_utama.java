@@ -1,9 +1,5 @@
 
-import java.awt.BorderLayout;
-import java.awt.CardLayout;
-import java.awt.Container;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license

@@ -11,11 +11,7 @@ import java.util.logging.Logger;
  * @author rifky
  */
 import javax.swing.*;
-import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 
 public class koneksi_db {
 	public static java.sql.Connection conn;

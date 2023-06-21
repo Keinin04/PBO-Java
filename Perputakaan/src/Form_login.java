@@ -13,7 +13,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 public class Form_login extends javax.swing.JFrame {
@@ -141,7 +140,7 @@ public class Form_login extends javax.swing.JFrame {
 					result.close();
 					statement.close();
 
-					new Form_utama().show();
+					new Form_utama2().show();
 					this.dispose();
 				}
 				else {
