@@ -2,11 +2,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-import java.awt.event.FocusEvent;
-import javax.swing.JFrame;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.awt.event.KeyEvent;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -22,9 +19,6 @@ import javax.swing.JFrame;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.ListSelectionModel;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.TableColumnModel;
-import javax.swing.table.DefaultTableCellRenderer;
 /**
  *
  * @author rifky
@@ -40,11 +34,13 @@ public class Form_utama extends javax.swing.JFrame {
 			initComponents();
 			fullLayar();
 
-
-			userLabel.setText(nama);
+			hello();
+				
 
 
 	}
+
+
 
 	public static String getUsername() {
 		return username;
@@ -58,6 +54,11 @@ public class Form_utama extends javax.swing.JFrame {
 	public static String getNama() {
 		return nama;
 
+	}
+
+	private void hello(){
+		// hati hati harus dari awal login
+			userLabel.setText(nama.toUpperCase());
 	}
 
 	public static void  setNama(String nama) {
@@ -174,7 +175,7 @@ public class Form_utama extends javax.swing.JFrame {
 			
 
 		} catch (SQLException ex) {
-			Logger.getLogger(Form_pencarian_buku.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(Form_utama.class.getName()).log(Level.SEVERE, null, ex);
 		}
 		
 	}
@@ -240,7 +241,7 @@ public class Form_utama extends javax.swing.JFrame {
 				statement.close();
 
 		} catch (SQLException ex) {
-			Logger.getLogger(Form_pencarian_buku.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(Form_utama.class.getName()).log(Level.SEVERE, null, ex);
 		}
 	}
 
@@ -281,7 +282,7 @@ public class Form_utama extends javax.swing.JFrame {
 				
 
 			} catch (SQLException ex) {
-				Logger.getLogger(Form_pencarian_buku.class.getName()).log(Level.SEVERE, null, ex);
+				Logger.getLogger(Form_utama.class.getName()).log(Level.SEVERE, null, ex);
 			}
 
 		} 
@@ -334,7 +335,7 @@ public class Form_utama extends javax.swing.JFrame {
 				
 
 		} catch (SQLException ex) {
-			Logger.getLogger(Form_pencarian_buku.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(Form_utama.class.getName()).log(Level.SEVERE, null, ex);
 		}
 
 	}
@@ -361,7 +362,7 @@ public class Form_utama extends javax.swing.JFrame {
 			statement.close();
 			}
 		} catch (SQLException ex) {
-			Logger.getLogger(Form_kembalikan_buku.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(Form_utama.class.getName()).log(Level.SEVERE, null, ex);
 		}
 	}
 
@@ -610,6 +611,14 @@ public class Form_utama extends javax.swing.JFrame {
                                 HomeFocusLost(evt);
                         }
                 });
+                Home.addMouseListener(new java.awt.event.MouseAdapter() {
+                        public void mouseEntered(java.awt.event.MouseEvent evt) {
+                                HomeMouseEntered(evt);
+                        }
+                        public void mouseExited(java.awt.event.MouseEvent evt) {
+                                HomeMouseExited(evt);
+                        }
+                });
                 Home.addActionListener(new java.awt.event.ActionListener() {
                         public void actionPerformed(java.awt.event.ActionEvent evt) {
                                 HomeActionPerformed(evt);
@@ -698,10 +707,10 @@ public class Form_utama extends javax.swing.JFrame {
 
                 panelUtama.setBackground(new java.awt.Color(152, 180, 212));
 
-                jLabel19.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-                jLabel19.setText("SELAMAT DATANG");
+                jLabel19.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+                jLabel19.setText("SELAMAT DATANG, ");
 
-                userLabel.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+                userLabel.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
                 userLabel.setText("nama");
 
                 javax.swing.GroupLayout panelUtamaLayout = new javax.swing.GroupLayout(panelUtama);
@@ -709,22 +718,20 @@ public class Form_utama extends javax.swing.JFrame {
                 panelUtamaLayout.setHorizontalGroup(
                         panelUtamaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(panelUtamaLayout.createSequentialGroup()
-                                .addGap(397, 397, 397)
-                                .addGroup(panelUtamaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel19)
-                                        .addGroup(panelUtamaLayout.createSequentialGroup()
-                                                .addGap(132, 132, 132)
-                                                .addComponent(userLabel)))
-                                .addContainerGap(690, Short.MAX_VALUE))
+                                .addGap(169, 169, 169)
+                                .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 461, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(userLabel)
+                                .addContainerGap(653, Short.MAX_VALUE))
                 );
                 panelUtamaLayout.setVerticalGroup(
                         panelUtamaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(panelUtamaLayout.createSequentialGroup()
-                                .addGap(116, 116, 116)
-                                .addComponent(jLabel19)
-                                .addGap(0, 0, 0)
-                                .addComponent(userLabel)
-                                .addContainerGap(459, Short.MAX_VALUE))
+                                .addGap(270, 270, 270)
+                                .addGroup(panelUtamaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel19)
+                                        .addComponent(userLabel))
+                                .addContainerGap(321, Short.MAX_VALUE))
                 );
 
                 Main.add(panelUtama, "card3");
@@ -1103,7 +1110,7 @@ public class Form_utama extends javax.swing.JFrame {
 			
 
 		} catch (SQLException ex) {
-			Logger.getLogger(Form_pencarian_buku.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(Form_utama.class.getName()).log(Level.SEVERE, null, ex);
 		}
         }//GEN-LAST:event_buttonPinjamActionPerformed
 
@@ -1252,11 +1259,14 @@ public class Form_utama extends javax.swing.JFrame {
                 // TODO add your handling code here:
                 int x;
                 x=JOptionPane.showConfirmDialog(null,"Yakin nich mau keluar?","CONFIRM",JOptionPane.YES_NO_OPTION);
-                if(x==JOptionPane.YES_OPTION)
-                new Form_login().show();
-                else
-                return;
-                this.dispose();
+                if(x==JOptionPane.YES_OPTION){
+			new Form_login().show();
+			this.dispose();
+		}
+		else{
+			return;
+
+		}
         }//GEN-LAST:event_exitMouseClicked
 
         private void exitFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_exitFocusGained
@@ -1268,6 +1278,15 @@ public class Form_utama extends javax.swing.JFrame {
                 // TODO add your handling code here:
 		notActive(exit);
         }//GEN-LAST:event_exitFocusLost
+
+        private void HomeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HomeMouseEntered
+                // TODO add your handling code here:
+		
+        }//GEN-LAST:event_HomeMouseEntered
+
+        private void HomeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HomeMouseExited
+                // TODO add your handling code here:
+        }//GEN-LAST:event_HomeMouseExited
 
 	/**
 	 * @param args the command line arguments
