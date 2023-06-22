@@ -28,12 +28,12 @@ import javax.swing.table.DefaultTableCellRenderer;
  *
  * @author rifky
  */
-public class Form_utama2 extends javax.swing.JFrame {
+public class Form_utama extends javax.swing.JFrame {
 
 	/**
 	 * Creates new form Form_utama2
 	 */
-	public Form_utama2() {
+	public Form_utama() {
 			initComponents();
 			fullLayar();
 
@@ -1169,7 +1169,7 @@ public class Form_utama2 extends javax.swing.JFrame {
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         // TODO add your handling code here:
-                        int x;
+	int x;
         x=JOptionPane.showConfirmDialog(null,"Yakin nich mau keluar?","CONFIRM",JOptionPane.YES_NO_OPTION);
         if(x==JOptionPane.YES_OPTION)
             new Form_login().show();
@@ -1195,20 +1195,21 @@ public class Form_utama2 extends javax.swing.JFrame {
 				}
 			}
 		} catch (ClassNotFoundException ex) {
-			java.util.logging.Logger.getLogger(Form_utama2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+			java.util.logging.Logger.getLogger(Form_utama.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 		} catch (InstantiationException ex) {
-			java.util.logging.Logger.getLogger(Form_utama2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+			java.util.logging.Logger.getLogger(Form_utama.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 		} catch (IllegalAccessException ex) {
-			java.util.logging.Logger.getLogger(Form_utama2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+			java.util.logging.Logger.getLogger(Form_utama.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 		} catch (javax.swing.UnsupportedLookAndFeelException ex) {
-			java.util.logging.Logger.getLogger(Form_utama2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+			java.util.logging.Logger.getLogger(Form_utama.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 		}
+		//</editor-fold>
 		//</editor-fold>
 
 		/* Create and display the form */
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				new Form_utama2().setVisible(true);
+				new Form_utama().setVisible(true);
 			}
 		});
 	}
