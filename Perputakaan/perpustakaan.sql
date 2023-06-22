@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 18, 2023 at 03:57 PM
+-- Generation Time: Jun 22, 2023 at 03:12 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -88,7 +88,6 @@ INSERT INTO `data_buku` (`kode_buku`, `judul_buku`, `pengarang`, `penerbit`, `ta
 --
 
 CREATE TABLE `data_peminjaman` (
-  `no` int(11) NOT NULL,
   `nim` int(30) NOT NULL,
   `nama` varchar(30) NOT NULL,
   `kode_buku` int(10) NOT NULL,
@@ -114,7 +113,11 @@ CREATE TABLE `mahasiswa` (
 --
 
 INSERT INTO `mahasiswa` (`nim`, `nama`, `password`) VALUES
-(1, 'Wijaya Brata Legiman', '123');
+(1, 'Wijaya Brata Legiman', '123'),
+(2, 'Setiawan Haadza', '123'),
+(3, 'Niko Ghani Annafi', '123'),
+(4, 'Januar Zamzam', '123'),
+(5, 'Rifqy Pratama', '123');
 
 --
 -- Indexes for dumped tables
@@ -130,7 +133,7 @@ ALTER TABLE `data_buku`
 -- Indexes for table `data_peminjaman`
 --
 ALTER TABLE `data_peminjaman`
-  ADD PRIMARY KEY (`no`);
+  ADD PRIMARY KEY (`kode_buku`);
 
 --
 -- Indexes for table `mahasiswa`
@@ -149,16 +152,10 @@ ALTER TABLE `data_buku`
   MODIFY `kode_buku` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1041;
 
 --
--- AUTO_INCREMENT for table `data_peminjaman`
---
-ALTER TABLE `data_peminjaman`
-  MODIFY `no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
-
---
 -- AUTO_INCREMENT for table `mahasiswa`
 --
 ALTER TABLE `mahasiswa`
-  MODIFY `nim` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `nim` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
