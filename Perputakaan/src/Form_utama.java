@@ -372,6 +372,7 @@ public class Form_utama extends javax.swing.JFrame {
 		dendaDialog.pack();
 		dendaDialog.setLocationRelativeTo(null);
 		dendaDialog.setVisible(true);
+
 		uangBayar.requestFocus();
 		bayar.setEnabled(false);
 		
@@ -401,7 +402,7 @@ public class Form_utama extends javax.swing.JFrame {
 				JOptionPane.showMessageDialog(rootPane, "Uang kembali : "+uangKembali);
 			}
 
-
+			hargaBayar = 0;
 			updateDataBukuPeminjaman();
 			menghapusDataPeminjaman();
 			refershDataPeminjaman();
@@ -1070,7 +1071,7 @@ public class Form_utama extends javax.swing.JFrame {
         private void buttonPinjamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPinjamActionPerformed
                 // TODO add your handling code here:
 		try {
-			if(Form_utama.getUsername() != null){
+			if(Form_utama.getUsername() != null){ // cek user apakah tidak sama dengan null
 				String sql = "INSERT INTO data_peminjaman (nim, nama, kode_buku, judul_buku, tanggal_pinjam, tanggal_kembali) VALUES (?, ?, ?, ?, ?, ?)";
 				PreparedStatement statement = koneksi_db.conn.prepareStatement(sql);
 
@@ -1081,7 +1082,7 @@ public class Form_utama extends javax.swing.JFrame {
 				statement.setDate(5, java.sql.Date.valueOf(LocalDate.now()));
 				statement.setDate(6,java.sql.Date.valueOf(getDuaMInggu()));
 
-				int rowInserted = statement.executeUpdate();
+				int rowInserted = statement.executeUpdate(); // eksekusi nambah data peminjaman
 				if (rowInserted > 0){
 					JOptionPane.showMessageDialog(rootPane, "Buku "+textJudulBuku.getText()+ " Berhasil dipinjam.");
 					updateDataBukuPencarian();
@@ -1171,12 +1172,12 @@ public class Form_utama extends javax.swing.JFrame {
 
         private void buttonPengembalianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPengembalianActionPerformed
                 // TODO add your handling code here:
-		if(Form_utama.getUsername() != null){
-			if(!textKodeBukuPeminjaman.getText().isBlank()){
+		if(Form_utama.getUsername() != null){ // user nya tidak sama dengan null (kosong)
+			if(!textKodeBukuPeminjaman.getText().isBlank()){ // buku ada apa tidak
 				LocalDate hariIni = LocalDate.now();
 				LocalDate tanggal = LocalDate.parse(textTanggalKembaliPeminjaman.getText());
 
-				if(!hariIni.isAfter(tanggal)){
+				if(!hariIni.isAfter(tanggal)){ // telat pengembalian apa tidak
 					// menghapus peminjaman
 					updateDataBukuPeminjaman();
 					menghapusDataPeminjaman();

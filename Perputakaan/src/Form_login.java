@@ -8,6 +8,7 @@
  * @author rifky
  */
 
+import java.awt.event.KeyEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -62,12 +63,23 @@ public class Form_login extends javax.swing.JFrame {
                                 username_TextfieldActionPerformed(evt);
                         }
                 });
+                username_Textfield.addKeyListener(new java.awt.event.KeyAdapter() {
+                        public void keyPressed(java.awt.event.KeyEvent evt) {
+                                username_TextfieldKeyPressed(evt);
+                        }
+                });
 
                 login_button.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
                 login_button.setText("LOGIN");
                 login_button.addActionListener(new java.awt.event.ActionListener() {
                         public void actionPerformed(java.awt.event.ActionEvent evt) {
                                 login_buttonActionPerformed(evt);
+                        }
+                });
+
+                password_Textfield.addKeyListener(new java.awt.event.KeyAdapter() {
+                        public void keyPressed(java.awt.event.KeyEvent evt) {
+                                password_TextfieldKeyPressed(evt);
                         }
                 });
 
@@ -118,17 +130,14 @@ public class Form_login extends javax.swing.JFrame {
                         .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(layout.createSequentialGroup()
+                                                .addGap(178, 178, 178)
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                                         .addComponent(password_Textfield, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                .addGroup(layout.createSequentialGroup()
-                                                                        .addGap(178, 178, 178)
-                                                                        .addComponent(username_Textfield, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                                .addGroup(layout.createSequentialGroup()
-                                                                        .addGap(178, 178, 178)
-                                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                                                .addComponent(jLabel1)
-                                                                                .addComponent(jLabel3)))))
+                                                                .addComponent(username_Textfield, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                                        .addComponent(jLabel1)
+                                                                        .addComponent(jLabel3))))
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(jcpassword))
                                         .addGroup(layout.createSequentialGroup()
@@ -174,6 +183,7 @@ public class Form_login extends javax.swing.JFrame {
 			Statement statement = (Statement) koneksi_db.getConnection().createStatement();
 			ResultSet result = statement.executeQuery("SELECT * FROM `mahasiswa` where"+" nim = '"+ username_Textfield.getText()+ "'");
 			if(result.next()){
+				String pass = result.getString("password");
 				if(password_Textfield.getText().equals(result.getString("password"))){
 
 					
@@ -223,6 +233,22 @@ public class Form_login extends javax.swing.JFrame {
                         password_Textfield.setEchoChar('*');
                 }
         }//GEN-LAST:event_jcpasswordActionPerformed
+
+        private void username_TextfieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_username_TextfieldKeyPressed
+                // TODO add your handling code here:
+		if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+			password_Textfield.requestFocus();
+		}
+        }//GEN-LAST:event_username_TextfieldKeyPressed
+
+        private void password_TextfieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_password_TextfieldKeyPressed
+                // TODO add your handling code here:
+		if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+			login_button.grabFocus();
+			login_button.doClick();
+			this.dispose();
+		}
+        }//GEN-LAST:event_password_TextfieldKeyPressed
 
 	/**
 	 * @param args the command line arguments
